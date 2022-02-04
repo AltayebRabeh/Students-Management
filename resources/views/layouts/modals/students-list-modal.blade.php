@@ -14,11 +14,7 @@
                             <label for="section">القسم</label>
                             <select name="section_id" id="section" class="form-control">
                                 <option></option>
-                                @if(cache('sections') != null)
-                                    @foreach (cache('sections') as $section)
-                                        <option value="{{ $section->id }}">{{ $section->name }}</option>
-                                    @endforeach
-                                @endif
+                                f
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
