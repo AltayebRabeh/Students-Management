@@ -30,9 +30,11 @@
                 <div class="col-md-4 mb-3">
                     <label for="section">القسم</label>
                     <select name="section_id" id="section" class="form-control" required>
-                        @foreach (cache('sections') as $section)
-                            <option value="{{ $section->id }}" {{ $section->id == $student->section_id ? 'selected': ''  }}>{{ $section->name }}</option>
-                        @endforeach
+                        @if(cache('sections') != null)
+                            @foreach (cache('sections') as $section)
+                                <option value="{{ $section->id }}" {{ $section->id == $student->section_id ? 'selected': ''  }}>{{ $section->name }}</option>
+                            @endforeach
+                        @endif
                     </select>
                     @error('section_id')
                         <span class="text-danger">{{ $message }}</span>
@@ -53,9 +55,11 @@
                     <label for="year_id">السنة</label>
                     <select name="year_id" id="year_id" class="form-control">
                         <option></option>
-                        @foreach (cache('years') as $year)
-                            <option value="{{ $year->id }}" {{ $year->id == $student->year->id ? 'selected': '' }}>{{ $year->year }}</option>
-                        @endforeach
+                        @if(cache('years') != null)
+                            @foreach (cache('years') as $year)
+                                <option value="{{ $year->id }}" {{ $year->id == $student->year->id ? 'selected': '' }}>{{ $year->year }}</option>
+                            @endforeach
+                        @endif
                     </select>
                     @error('year_id')
                         <span class="text-danger">{{ $message }}</span>

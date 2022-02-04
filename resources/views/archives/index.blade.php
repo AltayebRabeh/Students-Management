@@ -17,9 +17,11 @@
                                 <label for="section_id">إختار القسم</label>
                                 <select name="section_id" class="form-control section_id" id="section_id">
                                     <option value=""></option>
-                                    @foreach (cache('sections') as $section)
-                                        <option value="{{ $section->id }}">{{ $section->name }}</option>
-                                    @endforeach
+                                    @if(cache('sections') != null)
+                                        @foreach (cache('sections') as $section)
+                                            <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                                 @error('section_id')
                                     <div class="text-danger">{{ $message }}</div>

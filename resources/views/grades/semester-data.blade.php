@@ -16,9 +16,11 @@
                             <label for="section_id">إختار القسم</label>
                             <select name="section_id" class="form-control section_id" id="section_id">
                                 <option value=""></option>
-                                @foreach (cache('sections') as $section)
-                                    <option value="{{ $section->id }}">{{ $section->name }}</option>
-                                @endforeach
+                                @if(cache('sections') != null)
+                                    @foreach (cache('sections') as $section)
+                                        <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                             @error('section_id')
                                 <div class="text-danger">{{ $message }}</div>
@@ -46,9 +48,11 @@
                             <label for="year_id">إختيار السنة</label>
                             <select name="year_id" class="form-control year_id" id="year_id">
                                 <option value=""></option>
-                                @foreach (cache('years') as $year)
-                                    <option value="{{ $year->id }}">{{ $year->year }}</option>
-                                @endforeach
+                                @if(cache('years') != null)
+                                    @foreach (cache('years') as $year)
+                                        <option value="{{ $year->id }}">{{ $year->year }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                             @error('year_id')
                                 <div class="text-danger">{{ $message }}</div>
@@ -57,7 +61,7 @@
                         <div class="d-none">
                             <label for="subject_teacher_id">إختيار المادة</label>
                             <select name="subject_teacher_id" class="form-control subject_teacher_id" id="subject_teacher_id">
-                                
+
                             </select>
                             @error('subject_teacher_id')
                                 <div class="text-danger">{{ $message }}</div>
@@ -76,8 +80,8 @@
 @endsection
 
 @section('js')
-    
+
     @include('layouts.extends.ajax-get-semesters')
     @include('layouts.extends.ajax-get-subject-teacher')
-    
+
 @stop

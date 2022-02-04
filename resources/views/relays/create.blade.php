@@ -34,9 +34,11 @@
                             <label for="year_id">إختيار السنة</label>
                             <select name="year_id" class="form-control year_id" id="year_id">
                                 <option value=""></option>
-                                @foreach (cache('years') as $year)
-                                    <option value="{{ $year->id }}">{{ $year->year }}</option>
-                                @endforeach
+                                @if(cache('years') != null)
+                                    @foreach (cache('years') as $year)
+                                        <option value="{{ $year->id }}">{{ $year->year }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                             @error('year_id')
                                 <div class="text-danger">{{ $message }}</div>
