@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="{{ asset('uploads/'.cache('settings')['logo']) }}">
-    <title>{{ cache('settings')['university_name'] }}</title>
+    <title>{{ isset(cache('settings')) ? cache('settings')['university_name'] : '' }}</title>
 
     <!-- App CSS -->
     <link rel="stylesheet" href="{{ asset('css/app-light.css') }}" id="lightTheme">
@@ -33,7 +33,7 @@
       gtag('js', new Date());
       gtag('config', 'UA-56159088-1');
     </script>
-    
+
     <script src="{{ asset('js/toastr.min.js') }}"></script>
     @toastr_render
   </body>

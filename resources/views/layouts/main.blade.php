@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="{{ asset('uploads/'.cache('settings')['logo']) }}">
+    <link rel="icon" href="{{ isset(cache('settings')) ? asset('uploads/'.cache('settings')['logo']) : '' }}">
     <title>{{ cache('settings')['university_name'] }} @yield('title')</title>
 
     <!-- Simple bar CSS -->
@@ -54,7 +54,7 @@
 
     <script src="{{ asset('js/apps.js') }}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-    
+
     <script>
       window.dataLayer = window.dataLayer || [];
 
