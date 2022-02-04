@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="{{ isset(cache('settings')) ? asset('uploads/'.cache('settings')['logo']) : '' }}">
-    <title>{{ isset(cache('settings')) ? cache('settings')['university_name'] : '' }}</title>
+    <title>{{ cache('settings') != null ? cache('settings')['university_name'] : '' }}</title>
 
     <!-- App CSS -->
     <link rel="stylesheet" href="{{ asset('css/app-light.css') }}" id="lightTheme">
