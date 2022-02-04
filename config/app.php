@@ -166,7 +166,6 @@ return [
          * Package Service Providers...
          */
         Yoeunes\Toastr\ToastrServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
