@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="{{ asset('uploads/'.cache('settings')['logo']) }}">
+    <link rel="icon" href="{{ isset(cache('settings')) ? asset('uploads/'.cache('settings')['logo']) : '' }}">
     <title>{{ isset(cache('settings')) ? cache('settings')['university_name'] : '' }}</title>
 
     <!-- App CSS -->
