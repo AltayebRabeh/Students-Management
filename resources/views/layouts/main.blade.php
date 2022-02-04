@@ -6,8 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="{{ isset(cache('settings')) ? asset('uploads/'.cache('settings')['logo']) : '' }}">
-    <title>{{ isset(cache('settings')) ? cache('settings')['university_name'] : '' }} @yield('title')</title>
+    <link rel="icon" href="{{ cache('settings') != null ? asset('uploads/'.cache('settings')['logo']) : '' }}">
+    <title>{{ cache('settings') != null ? cache('settings')['university_name'] : '' }} @yield('title')</title>
 
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="{{ asset('css/simplebar.css') }}">

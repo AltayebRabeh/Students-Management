@@ -6,7 +6,7 @@
       <!-- nav bar -->
       <div class="w-100 mb-4 d-flex">
         <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
-            <img src="{{ isset(cache('settings')) ? asset('uploads/'.cache('settings')['logo']) : '' }}" alt="Rabeh" width="50px">
+            <img src="{{ cache('settings') != null ? asset('uploads/'.cache('settings')['logo']) : '' }}" alt="Rabeh" width="50px">
         </a>
       </div>
       <ul class="navbar-nav flex-fill w-100 mb-2">
