@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="{{ isset(cache('settings')) ? asset('uploads/'.cache('settings')['logo']) : '' }}">
-    <title>{{ cache('settings')['university_name'] }} @yield('title')</title>
+    <title>{{ isset(cache('settings')) ? cache('settings')['university_name'] : '' }} @yield('title')</title>
 
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="{{ asset('css/simplebar.css') }}">
