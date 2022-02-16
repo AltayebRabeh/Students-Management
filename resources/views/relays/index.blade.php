@@ -41,7 +41,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item text-left" href="{{ route('relays.details', $relay->id) }}">التفاصيل</a>
                                 <a class="dropdown-item text-left delete-with-modal" href="javascript:void()" data-href="{{ route('relays.back', $relay->id)}}" data-toggle="modal" data-message="هل انت متاكد من إسترجاع الترحيل؟" data-target="#deleteModal">إسترجاع</a>
-                            </div>                            
+                            </div>
                         </td>
                         </tr>
                         @endforeach
@@ -73,7 +73,7 @@
 
         // Send Data with AJAX
         $('form').submit(function (event) {
-            
+
             $(this).css('disabled', 'disabled');
 
             $('.loading').css("display", "flex");

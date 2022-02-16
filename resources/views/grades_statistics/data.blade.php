@@ -6,7 +6,7 @@
     <!-- Small table -->
     <div class="col-md-12 my-4">
         <div class="mb-4">
-            <h2 class="h4">إحصائيات نتيجة</h2>
+            <h2 class="h4">إحصاء نسبة النجاح</h2>
         </div>
         <div class="card shadow">
             <div class="card-body">

@@ -166,6 +166,7 @@ class StudentGradesController extends Controller
                                 }])
                                 ->whereHas('semesters.grades', function($q)use($student){$q->where('student_id', $student->id);})->get();
 
+                                // dd($classrooms);
         if(!$classrooms->first())
         {
             toastr()->warning('لايوجد نتيجة للطالب');

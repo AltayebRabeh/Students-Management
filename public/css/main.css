@@ -129,3 +129,11 @@
             transform: rotate(360deg);
         }
     }
+    
+    .select2-container--bootstrap4 .select2-selection--multiple {
+        padding: 5px 8px 8px;
+    }
+    
+    .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice {
+        float: right;
+    }

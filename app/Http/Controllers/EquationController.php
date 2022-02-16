@@ -106,19 +106,19 @@ class EquationController extends Controller
         if(!$request->has('status')){
             $equation->delete();
             foreach($equation->marks as $mark){
-                $mark->delete;
+                $mark->delete();
             }
         } else {
-            $equations = Equation::with(['marks'])->get();
+            $equations = Equation::with(['marks' => function($q){return $q->withTrashed();}])->get();
             foreach($equations as $eq){
                 foreach($eq->marks as $mark){
-                    $mark->delete;
+                    $mark->delete();
                 }
                 $eq->delete();
             }
 
             foreach($equation->marks as $mark){
-                $mark->delete;
+                $mark->restore();
             }
             $equation->restore();
         }

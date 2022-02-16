@@ -26,7 +26,7 @@ class RelayController extends Controller
      */
     public function index()
     {
-        $relays = Relay::withCount('relayStudents')->paginate(PAGINATE_NUMBER);
+        $relays = Relay::withCount('relayStudents')->get();
 
         foreach($relays as $relay)
         {
@@ -36,6 +36,8 @@ class RelayController extends Controller
                 $relay->save();
             }
         }
+
+        $relays = Relay::withCount('relayStudents')->paginate(PAGINATE_NUMBER);
 
         return view('relays.index', compact('relays'));
     }
@@ -85,7 +87,7 @@ class RelayController extends Controller
         }
 
         try
-        {            
+        {
             DB::beginTransaction();
 
             $relay = Relay::create([
@@ -120,7 +122,7 @@ class RelayController extends Controller
                 $gba = array_sum($total) / array_sum($hours);
 
                 if((isset($relay->cgp) && $relay->cgp != null) && (isset($relay->fails) && $relay->fails != null))
-                { 
+                {
                     if($relay->cgp > $gba && $relay->fails < $fails) {
                         $student->update([
                             'year_id' => $request->year_id
@@ -172,8 +174,8 @@ class RelayController extends Controller
                         ]);
                         continue;
                     }
-                } 
-                else 
+                }
+                else
                 {
                     $equation = Equation::first();
                     if($equation->cgp > $gba && ($equation->fails != 0 && $fails >= $equation->fails)) {
@@ -215,12 +217,12 @@ class RelayController extends Controller
                 $relay->delete();
                 toastr()->error("لم يتم ترحيل اي طالب");
             }
-            
+
             DB::commit();
-            
+
             toastr()->success("تم ترحيل {$relay->relayStudents->count()} من الطلاب بنجاح");
             return redirect()->route('relays.index');
-        } 
+        }
         catch(Exception $e)
         {
             return $e->getMessage();

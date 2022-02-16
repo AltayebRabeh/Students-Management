@@ -40,6 +40,7 @@
                                     <?php $year_hours = [] ?>
                                     <?php $year_total = [] ?>
 
+                                    <?php $year = null?>
 
                                     <?php $fails = null  ?>
 
@@ -56,7 +57,6 @@
                                                 <th scope="col">إسم المادة</th>
                                                 <th scope="col" width="15%" style="text-align:center;">الدرجة</th>
                                             </tr>
-                                            <?php $year = null?>
                                             <?php $semester_hours = [] ?>
                                             <?php $semester_total = [] ?>
 

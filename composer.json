@@ -13,6 +13,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.5",
+        "santigarcor/laratrust": "^6.4",
         "yoeunes/toastr": "^1.2"
     },
     "require-dev": {

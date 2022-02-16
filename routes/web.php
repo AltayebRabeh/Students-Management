@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MarkController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\YearController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\RelayController;
@@ -13,11 +14,13 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\EquationController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\ClassroomController;
-use App\Http\Controllers\GradesStatisticsController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SupplementController;
 use App\Http\Controllers\StudentGradesController;
 use App\Http\Controllers\StudentArchiveController;
 use App\Http\Controllers\SubjectTeacherController;
+use App\Http\Controllers\GradesStatisticsController;
+use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,16 +35,16 @@ use App\Http\Controllers\SubjectTeacherController;
 
 define('PAGINATE_NUMBER', 100);
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
-    Route::get('/dashboard', function() {
-        return view('dashboard');
-    })->name('dashboard');
+
+    Route::get('/', [DashboardController::class, 'dashboard']);
+
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::Post('register', [RegisteredUserController::class, 'store'])->name('register');
 
     Route::resource('sections', SectionController::class);
 
@@ -62,6 +65,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::post('grades/destroy', [GradeController::class, 'destroy'])->name('grades.destroy');
     Route::get('grades/semester-data', [GradeController::class, 'semesterData'])->name('grades.semester.data');
     Route::get('grades/semester-result', [GradeController::class, 'semesterResult'])->name('grades.semester.result');
+    Route::get('grades/increase-success', [GradeController::class, 'increaseSuccess'])->name('grades.increase.success');
+    Route::post('grades/increase-success', [GradeController::class, 'increaseSuccessStore'])->name('grades.increase.success.store');
 
     Route::get('student-grades', [StudentGradesController::class, 'index'])->name('student-grades.index');
     Route::post('student-grades/create', [StudentGradesController::class, 'create'])->name('student-grades.create');
@@ -107,6 +112,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
     Route::get('grades-statistics', [GradesStatisticsController::class, 'data'])->name('grades-statistics.data');
     Route::get('grades-statistics/statistics', [GradesStatisticsController::class, 'result'])->name('grades-statistics.result');
+
+
+    Route::resource('users', UserController::class);
 
 });
 

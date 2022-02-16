@@ -6,8 +6,8 @@
     <!-- Small table -->
         <div class="col-md-12 my-4">
             <div class="d-flex mb-4">
-                <h2 class="h4">الرموز</h2>
-                <a href="{{ route('marks.create') }}" class="btn btn-primary ml-auto">إضافة رمز</a>
+                <h2 class="h4">الدرجات والرموز</h2>
+                <a href="{{ route('marks.create') }}" class="btn btn-primary ml-auto">إضافة</a>
             </div>
             <div class="card shadow">
                 <div class="card-body">

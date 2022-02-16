@@ -153,8 +153,8 @@
                             $('form#students input[name="'+ input +'"]').foucs();
                         }
                     }
-                    $('.loading').css("display", "none");
                 }
+                $('.loading').css("display", "none");
 
             });
 

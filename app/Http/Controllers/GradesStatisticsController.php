@@ -95,7 +95,7 @@ class GradesStatisticsController extends Controller
             'year' => Year::find($request->year_id)->year,
         ];
 
-        // return  $SubjectsStatistics;
+        // return  $semesterRate;
 
         return view('grades_statistics.result', compact('SubjectsStatistics'))->with($param);
     }

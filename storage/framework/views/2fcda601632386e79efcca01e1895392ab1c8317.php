@@ -23,15 +23,12 @@
         </a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="avatar avatar-sm mt-2">
-            <img src="<?php echo e(asset('uploads/avatars/face-1.jpg')); ?>" alt="..." class="avatar-img rounded-circle">
+        <a class="nav-link dropdown-toggle text-muted pr-0 d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span style="width:33px;height:33px;border-radius:50%;background-image: url(<?php echo e(url(Auth::user()->profile_photo_url)); ?>);background-size:cover;background-position:center">
           </span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item text-left" href="<?php echo e(route('profile.show')); ?>">Profile</a>
-          <a class="dropdown-item text-left" href="#">Settings</a>
-          <a class="dropdown-item text-left" href="#">Activities</a>
+          <a class="dropdown-item text-left" href="<?php echo e(route('profile.show')); ?>">الملف الشخصي</a>
           <form method="POST" action="<?php echo e(route('logout')); ?>">
             <?php echo csrf_field(); ?>
 

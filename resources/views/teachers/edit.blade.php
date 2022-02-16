@@ -26,7 +26,7 @@
                         <option></option>
                         @if(cache('sections') != null)
                             @foreach (cache('sections') as $section)
-                                <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                <option value="{{ $section->id }}" {{ $section->id == $teacher->section_id ? 'selected' : '' }}>{{ $section->name }}</option>
                             @endforeach
                         @endif
                     </select>

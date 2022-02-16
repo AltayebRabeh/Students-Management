@@ -17,6 +17,12 @@ $(document).ready(function() {
         theme: 'bootstrap4',
         closeOnSelect: true,
     });
+
+    $('.permissions').select2({
+        multiple: true,
+        theme: 'bootstrap4',
+        closeOnSelect: true,
+    });
     // $('.classroom_id').select2({
     //     multiple: false,
     //     theme: 'bootstrap4',

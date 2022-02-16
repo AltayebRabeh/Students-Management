@@ -42,13 +42,13 @@
                     <label class="custom-control-label" for="fail">رسوب</label>
                   </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6 col-sm-6">
                     <div class="custom-control custom-switch">
                       <input type="checkbox" name="calculation" class="custom-control-input" id="calculation" checked>
                       <label class="custom-control-label" for="calculation">تحسب في المعدل</label>
                     </div>
                 </div>
-                <div class="col-md-7 text-right">
+                <div class="col-md-6 col-sm-6 text-right">
                   <button type="submit" class="btn btn-primary">حفظ</button>
                 </div>
               </div>
