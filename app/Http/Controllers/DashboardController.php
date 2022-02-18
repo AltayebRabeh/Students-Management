@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+
+    protected $successRate = [];
+
     public function dashboard() {
         $allStudents = Student::withTrashed()->count();
         $currentStudents = Student::where('classroom_id', '!=', 6)->count();
@@ -18,17 +21,30 @@ class DashboardController extends Controller
         $years = Year::select('id', 'year')->whereHas('grades')->get();
 
         $years->each(function($year) {
-            $year->sections = Section::with(['grades' => function($q) use($year) {
-                $q->where('year_id', $year->id);
-            },
-            'students' => function($q) use($year) {
-                $q->whereHas('grades', function($q) use($year) {
-                    $q->whereYearId($year->id);
+
+            $year->sections = Section::whereHas('grades', function($q) use($year){$q->whereYearId($year->id);})->whereHas('students')->get();
+
+            $year->sections->each(function($section) use($year){
+
+                $this->successRate[$section->name]['name'] = $section->name;
+
+                $section->studentsCount = Student::whereHas('grades', function($q) use($year, $section){
+                    $q->withTrashed()->whereYearId($year->id)->whereSectionId($section->id);
                 })->count();
-            }])->whereHas('grades')->whereHas('students')->get();
+                
+                $section->studentsSuccess = Student::whereHas('grades', function($q) use($year, $section){
+                    $q->withTrashed()->whereYearId($year->id)->whereSectionId($section->id);
+                })->whereDoesntHave('grades', function($q) use($year){$q->withTrashed()->whereYearId($year->id)->where('re_exam', '!=', 0)->orWhere('fail', '!=', 0);})->count();
+                
+                $section->successRate = number_format(($section->studentsSuccess / $section->studentsCount) * 100 , 2);
+                
+                $this->successRate[$section->name][] = $section->successRate;
+                
+            });
+
         });
 
-        return $years;
+        // return($this->successRate);
 
         $args = [
             'allStudents' => $allStudents,
@@ -36,6 +52,7 @@ class DashboardController extends Controller
             'graduateStudents' => $graduateStudents,
             'archiveStudents' => $archiveStudents,
             'years' => $years,
+            'successRate' => $this->successRate
         ];
 
         return view('dashboard')->with($args);

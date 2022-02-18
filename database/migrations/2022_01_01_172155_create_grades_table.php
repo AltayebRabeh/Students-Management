@@ -26,6 +26,7 @@ class CreateGradesTable extends Migration
             $table->foreignId('year_id')->references('id')->on('years')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('subject_teacher_id')->references('id')->on('subject_teacher')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

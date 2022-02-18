@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\YearController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\RelayController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StudentController;
@@ -40,6 +41,8 @@ define('PAGINATE_NUMBER', 100);
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
     Route::get('/', [DashboardController::class, 'dashboard']);
+
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 

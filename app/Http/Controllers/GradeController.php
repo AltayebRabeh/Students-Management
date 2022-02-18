@@ -198,11 +198,9 @@ class GradeController extends Controller
         
         $students = Student::select('id', 'university_number', 'name')
         ->with(['grades' => function($q) use($request){
-            return $q->with(['mark'])
-                    ->whereReExam(1)
-                    ->whereSectionId($request->section_id)
+            return $q->whereSectionId($request->section_id)
                     ->whereYearId($request->year_id)
-                    ->whereClassroomId($request->semester_id)
+                    ->whereClassroomId($request->classroom_id)
                     ->whereSemesterId($request->semester_id)
                     ->whereSubjectTeacherId($request->subject_teacher_id);
         }])
@@ -222,16 +220,23 @@ class GradeController extends Controller
         ->whereYearId($request->year_id)
         ->whereClassroomId($request->classroom_id)
         ->get();
+        
+        if(!$students) {
+            toastr()->warning('لايوجد صفوف تأكد من المدخلات');
+            return true;
+        }
 
         if($request->increase_type === 'precentage') {
 
             foreach($students as $student){
+                
                 $student->grades->first()->grade += (int)($request->increase * $student->grades->first()->grade) / 100;
                 if($student->grades->first()->grade > 100) {
                     $student->grades->first()->grade = 100;
                 }
                 $mark = Mark::select('id', 'fail', 'max')->where('min', '<=', $student->grades->first()->grade)->where('max', '>=', $student->grades->first()->grade)->first();
                 $re_exam = $mark->fail == 1 || $mark->max > 100 ? 1 : 0;
+                
                 $student->grades->first()->mark_id = $mark->id;
                 $student->grades->first()->re_exam = $re_exam;
                 $student->grades->first()->save();
@@ -240,12 +245,14 @@ class GradeController extends Controller
         } else {
 
             foreach($students as $student){
+                
                 $student->grades->first()->grade += (int) $request->increase;
                 if($student->grades->first()->grade > 100) {
                     $student->grades->first()->grade = 100;
                 }
                 $mark = Mark::select('id', 'fail', 'max')->where('min', '<=', $student->grades->first()->grade)->where('max', '>=', $student->grades->first()->grade)->first();
                 $re_exam = $mark->fail == 1 || $mark->max > 100 ? 1 : 0;
+
                 $student->grades->first()->mark_id = $mark->id;
                 $student->grades->first()->re_exam = $re_exam;
                 $student->grades->first()->save();
@@ -254,6 +261,6 @@ class GradeController extends Controller
         }
 
         toastr()->success('تمت العملية بنجاح');
-        return redirect()->back();
+        return true;
     }
 }

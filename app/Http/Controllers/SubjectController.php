@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subject;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
-use App\Models\Subject;
 
 class SubjectController extends Controller
 {
@@ -13,9 +14,9 @@ class SubjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $subjects = Subject::withTrashed()->paginate(PAGINATE_NUMBER);
+        $subjects = Subject::withTrashed()->paginate(PAGINATE_NUMBER)->appends($request->except('page'));
 
         return view('subjects.index', compact('subjects'));
     }

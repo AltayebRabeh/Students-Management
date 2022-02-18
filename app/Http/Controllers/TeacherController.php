@@ -25,7 +25,7 @@ class TeacherController extends Controller
             $teachers = $teachers->whereSectionId($request->section_id);
         }
 
-        $teachers = $teachers->paginate(PAGINATE_NUMBER);
+        $teachers = $teachers->paginate(PAGINATE_NUMBER)->appends($request->except('page'));
 
         return view('teachers.index', compact('teachers'));
     }

@@ -10,7 +10,7 @@
         </div>
         <div class="card shadow">
             <div class="card-body">
-                <form action="{{ route('grades.increase.success.store') }}" method="POST">
+                <form id="increase" action="{{ route('grades.increase.success.store') }}" method="POST">
                     @csrf
                     @method('POST')
                     <div class="form-row">
@@ -103,7 +103,7 @@
                             @enderror
                         </div>
                         <div class="col-md-1 mb-3 pt-1">
-                            <button type="submit" class="btn btn-primary mt-4">متابعة</button>
+                            <button type="submit" class="btn btn-primary mt-4" id="btn-send">متابعة</button>
                         </div>
                     </div>
                 </form>
@@ -117,5 +117,55 @@
 
     @include('layouts.extends.ajax-get-semesters')
     @include('layouts.extends.ajax-get-subject-teacher')
+
+    <script>
+
+        $(document).ready(function() {
+    
+            // Send Data with AJAX
+            $('#btn-send').click(function (event) {
+    
+                $(this).css('disabled', 'disabled');
+                
+                $('.loading').css("display", "flex");
+    
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+    
+                event.preventDefault();
+ 
+                $('.text-danger').remove();
+    
+                $.ajax({
+                    type: "POST",
+                    url : "{{ route('grades.increase.success.store') }}",
+                    data : $('form#increase').serialize(),
+    
+                    success  : function(data) {
+                        if(data) {
+                            window.location.assign("{{ route('grades.increase.success') }}");
+                            $('.loading').css("display", "none");
+                        }
+                    },
+                    error: function(data) {
+                        for(const [key, value] of Object.entries(data.responseJSON.errors)) {
+                            $('form#increase select[name="'+key+'"]').parent().append("<span class='text-danger d-block'>"+value+"</span>");
+                            $('form#increase input[name="'+key+'"]').parent().append("<span class='text-danger d-block'>"+value+"</span>");
+                        }
+    
+                        $('.loading').css("display", "none");
+                    }
+    
+                });
+    
+            });
+    
+        });
+    
+    
+    </script>
 
 @stop

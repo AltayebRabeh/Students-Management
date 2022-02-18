@@ -74,7 +74,7 @@ class GradesStatisticsController extends Controller
         })->count();
 
         $studentCount = Student::whereHas('grades', function($q) use($request){
-            $q->whereSectionId($request->section_id)
+            $q->withTrashed()->whereSectionId($request->section_id)
             ->whereClassroomId($request->classroom_id)
             ->whereSemesterId($request->semester_id)
             ->whereYearId($request->year_id);

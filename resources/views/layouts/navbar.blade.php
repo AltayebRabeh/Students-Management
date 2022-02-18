@@ -2,8 +2,8 @@
     <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
       <i class="fe fe-menu navbar-toggler-icon"></i>
     </button>
-    <form class="form-inline mr-auto searchform text-muted">
-      <input class="form-control mr-sm-0 bg-transparent border-0 pl-2 text-muted" type="search" placeholder="بحث..." aria-label="Search">
+    <form class="form-inline mr-auto searchform text-muted" method="get" action="{{ route('search') }}">
+      <input name="search" class="form-control mr-sm-0 bg-transparent border-0 pl-2 text-muted" type="search" placeholder="بحث..." aria-label="Search">
     </form>
     <ul class="nav">
       <li class="nav-item">
@@ -14,12 +14,6 @@
       <li class="nav-item">
         <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-shortcut">
           <span class="fe fe-grid fe-16"></span>
-        </a>
-      </li>
-      <li class="nav-item nav-notif">
-        <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-notif">
-          <span class="fe fe-bell fe-16"></span>
-          <span class="dot dot-md bg-success"></span>
         </a>
       </li>
       <li class="nav-item dropdown">

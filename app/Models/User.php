@@ -70,7 +70,7 @@ class User extends Authenticatable
     {
         return $this->profile_photo_path
                     ? Storage::disk($this->profilePhotoDisk())->url($this->profile_photo_path)
-                    : Storage::disk($this->profilePhotoDisk())->url("profile-photos/8Pp6LbA3opvtoUkBGt7GimilOtmpMTc0oxmK1TPI.png");
+                    : Storage::disk($this->profilePhotoDisk())->url("profile-photos/default.png");
     }
 
     public function students() {

@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="<?php echo e(cache('settings') != null ? asset('uploads/'.cache('settings')['logo']) : ''); ?>">
+    <link rel="icon" href="<?php echo e(cache('settings') != null ? asset('uploads/'.cache('settings')['logo']) : asset('/uploads/settings/logo.png')); ?>">
     <title><?php echo e(cache('settings') != null ? cache('settings')['university_name'] : ''); ?> <?php echo $__env->yieldContent('title'); ?></title>
 
     <!-- Simple bar CSS -->
