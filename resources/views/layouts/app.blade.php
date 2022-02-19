@@ -35,7 +35,7 @@
             <main role="main" class="main-content">
                 <div class="container-fluid">
                     @include('layouts.modals.students-list-modal')
-                    @include('layouts.modals.supplements-list-modal')
+                    @include('layouts.modals.general-list-modal')
                     @include('layouts.modals.student-result-modal')
                     {{ $slot }}
                 </div> <!-- .container-fluid -->
@@ -54,6 +54,8 @@
         <script src="{{ asset('js/config.js') }}"></script>
     
         @include('layouts.extends.ajax-get-classrooms')
+        @include('layouts.extends.ajax-get-semesters')
+        @include('layouts.extends.ajax-get-subject-teacher')
         @yield('js')
     
         <script src="{{ asset('js/apps.js') }}"></script>

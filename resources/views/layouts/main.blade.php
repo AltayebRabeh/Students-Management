@@ -9,6 +9,10 @@
     <link rel="icon" href="{{ cache('settings') != null ? asset('uploads/'.cache('settings')['logo']) : asset('/uploads/settings/logo.png') }}">
     <title>{{ cache('settings') != null ? cache('settings')['university_name'] : '' }} @yield('title')</title>
 
+    @if(isset($slot))
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @endif
+    
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="{{ asset('css/simplebar.css') }}">
 
@@ -30,8 +34,11 @@
         <main role="main" class="main-content">
             <div class="container-fluid">
                 @yield('content')
+                @if(isset($slot))
+                    {{ $slot }}
+                @endif
                 @include('layouts.modals.students-list-modal')
-                @include('layouts.modals.supplements-list-modal')
+                @include('layouts.modals.general-list-modal')
                 @include('layouts.modals.student-result-modal')
             </div> <!-- .container-fluid -->
             @include('layouts.modals.notify-shortcut')
@@ -50,6 +57,8 @@
     <script src="{{ asset('js/config.js') }}"></script>
 
     @include('layouts.extends.ajax-get-classrooms')
+    @include('layouts.extends.ajax-get-semesters')
+    @include('layouts.extends.ajax-get-subject-teacher')
     @yield('js')
 
     <script src="{{ asset('js/apps.js') }}"></script>

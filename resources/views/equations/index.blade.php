@@ -6,7 +6,7 @@
     <!-- Small table -->
         <div class="col-md-12 my-4">
             <div class="d-flex mb-4">
-                <h2 class="h4">طرق الحساب</h2>
+                <h2 class="h4">المعادلات</h2>
                 <a href="{{ route('equations.create') }}" class="btn btn-primary ml-auto">إضافة</a>
             </div>
             <div class="card shadow">
@@ -16,9 +16,9 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>إسم الطريقة</th>
-                            <th>إسم الطريقة</th>
+                            <th>إسم المعادلة</th>
                             <th>المعدل</th>
+                            <th>معدل النجاح</th>
                             <th>عدد الرسوب في المواد</th>
                             <th>الحالة</th>
                             <th>العمليات</th>

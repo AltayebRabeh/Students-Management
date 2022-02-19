@@ -79,9 +79,4 @@
 
 @endsection
 
-@section('js')
 
-    @include('layouts.extends.ajax-get-semesters')
-    @include('layouts.extends.ajax-get-subject-teacher')
-
-@stop

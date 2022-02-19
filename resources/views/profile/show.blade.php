@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-main-layout>
     <div class="row justify-content-center">
         <div class="col-12 col-lg-10 col-xl-8">
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())

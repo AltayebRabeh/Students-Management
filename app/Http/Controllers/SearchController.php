@@ -18,15 +18,15 @@ class SearchController extends Controller
 
         $students = Student::withTrashed()->with(['year','section','classroom'])->where('name', 'LIKE', '%' . $request->search . '%')
                     ->orWhere('university_number', 'LIKE', '%'. $request->search .'%')
-                    ->paginate(10)->appends($request->except('page'));
+                    ->paginate(10, ['*'], 'students_page')->appends($request->except('page'));
 
         $teachers = Teacher::withTrashed()->with(['section'])->where('name', 'LIKE', '%' . $request->search . '%')
                     ->orWhere('description', 'LIKE', '%'. $request->search .'%')
-                    ->paginate(10)->appends($request->except('page'));
+                    ->paginate(10, ['*'], 'teachers_page')->appends($request->except('page'));
 
         $subjects = Subject::withTrashed()->where('name', 'LIKE', '%' . $request->search . '%')
                     ->orWhere('description', 'LIKE', '%'. $request->search .'%')
-                    ->paginate(10)->appends($request->except('page'));
+                    ->paginate(10, ['*'], 'subjects_page')->appends($request->except('page'));
 
         return view('search', compact('students', 'teachers', 'subjects'));
     }

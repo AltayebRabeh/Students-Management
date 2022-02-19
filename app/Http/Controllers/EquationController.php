@@ -56,7 +56,7 @@ class EquationController extends Controller
             $equation->restore();
         }
 
-        toastr()->success('تم إضافة الطريقة بنجاح');
+        toastr()->success('تم إضافة معادلة بنجاح');
         return redirect()->route('equations.index');
     }
 
@@ -123,7 +123,7 @@ class EquationController extends Controller
             $equation->restore();
         }
 
-        toastr()->success('تم تحديث الطريقة بنجاح');
+        toastr()->success('تم تحديث المعادلة بنجاح');
         return redirect()->route('equations.index');
     }
 
@@ -143,12 +143,12 @@ class EquationController extends Controller
 
         if($equation->find($id)) {
             Equation::withTrashed()->find($id)->forceDelete();
-            toastr()->success('تم حذف الطريقة بنجاح');
+            toastr()->success('تم حذف المعادلة بنجاح');
             return redirect()->route('equations.index');
         }
 
 
-        toastr()->error('لايمكن حذف الطريقة هنالك علامات تعتمد عليها');
+        toastr()->error('لايمكن حذف المعادلة هنالك علامات تعتمد عليها');
         return redirect()->route('equations.index');
     }
 }

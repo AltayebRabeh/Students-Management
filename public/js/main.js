@@ -1,10 +1,13 @@
 $(document).ready(function() {
 
-    $(document).ready(function() {
-        $('.delete-with-modal').click(function() {
-            $('.modal-body').text($(this).data('message'));
-            $('form#deleteWithModal').attr('action', $(this).data('href'));
-        })
+    $('.delete-with-modal').click(function() {
+        $('.modal-body').text($(this).data('message'));
+        $('form#deleteWithModal').attr('action', $(this).data('href'));
+    });
+
+    $('.general-modal').click(function() {
+        $('#modalTitle').text($(this).data('title'));
+        $('form#generalModal').attr('action', $(this).data('href'));
     });
 
     $('.section_id').select2({

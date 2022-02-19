@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Models\SubjectTeacher;
 use App\Http\Requests\StoreGradeRequest;
 use App\Http\Requests\SupplementRequest;
+use App\Models\Subject;
 
 class SupplementController extends Controller
 {
@@ -169,11 +170,70 @@ class SupplementController extends Controller
         $section = Section::find($request->section_id)->name;
         $classroom = Classroom::find($request->classroom_id)->name;
 
-        $students = Student::whereHas('grades', function($q) {$q->where('re_exam', 1)->orWhere('re_exam', 2);})
+        $subject = null;
+        if(isset($request->subject_teacher_id)) {
+            $subject = Subject::find($request->subject_teacher_id)->name;
+        }
+
+        $students = Student::whereHas('grades', function($q) use($request){
+            $q->where('re_exam', 1)->orWhere('re_exam', 2);
+            if(isset($request->subject_teacher_id)) {
+                $q = $q->where('subject_teacher_id', $request->subject_teacher_id);
+            }
+        })
         ->whereSectionId($request->section_id)
         ->whereClassroomId($request->classroom_id)
         ->get();
 
-        return view('supplements.list', compact('students'))->with(['classroom' => $classroom, 'section' => $section]);
+        return view('supplements.list', compact('students'))->with(['classroom' => $classroom, 'section' => $section, 'subject' => $subject]);
+    }
+
+    public function checkList(Request $request)
+    {
+        if(!(isset($request->section_id) 
+            && isset($request->classroom_id) 
+            && isset($request->semester_id) 
+            && isset($request->year_id)
+             && isset($request->subject_teacher_id))) {
+            toastr()->warning('الرجاء مل  البيانات المطلوبة');
+            return redirect()->back();
+        }
+
+        $section = Section::find($request->section_id)->name;
+        $classroom = Classroom::find($request->classroom_id)->name;
+        $semester = Semester::find($request->semester_id)->name;
+        $subject = Subject::find(SubjectTeacher::find($request->subject_teacher_id)->subject_id)->name;
+
+
+        $students = Student::whereHas('grades', function($q) use($request){
+                                $q->where('subject_teacher_id', $request->subject_teacher_id);
+                                $q = $q->whereYearId($request->year_id);
+                            })
+                            ->whereSectionId($request->section_id)
+                            ->whereClassroomId($request->classroom_id)
+                            ->whereYearId($request->year_id)
+                            ->count();
+
+        if($students == 0) {
+            $students = Student::whereSectionId($request->section_id)
+            ->whereClassroomId($request->classroom_id)
+            ->whereYearId($request->year_id)
+            ->get();
+            $rexam = false;
+            
+        } else {
+            $students = Student::whereHas('grades', function($q) use($request){
+                $q->where('re_exam', 1)->orWhere('re_exam', 2);
+                $q = $q->where('subject_teacher_id', $request->subject_teacher_id);
+            })
+            ->whereSectionId($request->section_id)
+            ->whereClassroomId($request->classroom_id)
+            ->whereYearId($request->year_id)
+            ->get();
+            $rexam = true;
+        }
+
+
+        return view('supplements.check-list', compact('students'))->with(['classroom' => $classroom, 'semester' => $semester, 'section' => $section, 'subject' => $subject, 'rexam' => $rexam]);
     }
 }

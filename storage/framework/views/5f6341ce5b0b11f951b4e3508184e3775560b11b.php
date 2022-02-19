@@ -52,7 +52,11 @@
                   </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pl-3" data-toggle="modal" data-target="#supplementListModal" href="javascript:void();"><span class="ml-1 item-text">القوائم للملاحق والبدائل</span>
+                  <a class="nav-link pl-3 general-modal" data-href="<?php echo e(route('supplements.check.list')); ?>" data-title="عرض قوائم الدرجات"  data-toggle="modal" data-target="#generalListModal" data-varyModalLabel="pjpojop" href="javascript:void();"><span class="ml-1 item-text">عرض قوائم الدرجات</span>
+                  </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link pl-3 general-modal" data-href="<?php echo e(route('supplements.list')); ?>" data-title="القوائم للملاحق والبدائل" data-toggle="modal" data-target="#generalListModal" href="javascript:void();"><span class="ml-1 item-text">القوائم للملاحق والبدائل</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -64,7 +68,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pl-3" data-toggle="modal" data-target="#studentResultModal" href="javascript:void();"><span class="ml-1 item-text">عرض نتيجة طالب</span>
+                <a class="nav-link pl-3" data-toggle="modal" data-target="#studentResultModal" href="javascript:void();"><span class="ml-1 item-text">عرض تفاصيل طالب</span>
                 </a>
               </li>
               <li class="nav-item">
@@ -173,7 +177,7 @@
         <li class="nav-item dropdown">
             <a href="#equations" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
               <i class="fe fe-plus-square fe-16"></i>
-              <span class="ml-3 item-text">طريقة الحساب</span>
+              <span class="ml-3 item-text">المعادلات</span>
             </a>
             <ul class="collapse list-unstyled pl-4 w-100" id="equations">
               <li class="nav-item">

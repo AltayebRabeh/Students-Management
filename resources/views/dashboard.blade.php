@@ -82,10 +82,12 @@
               </div>
             </div>
           </div>
+          <hr>
           <!-- charts-->
           <div class="row my-4">
             <div class="col-md-12">
               <div class="chart-box">
+                <p class="text-muted text-center"><strong>معدل نجاح الاقسام في السنين</strong></p>
                 <div id="lineChart"></div>
               </div>
             </div> <!-- .col -->
@@ -121,9 +123,9 @@
                         ]
                     @endif
                 @endforeach
-                    
+
                 },
-                
+
             @endforeach
             // {
             //     name: "Page views",

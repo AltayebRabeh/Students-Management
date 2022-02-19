@@ -46,9 +46,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
-    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
-    Route::Post('register', [RegisteredUserController::class, 'store'])->name('register');
-
+    
     Route::resource('sections', SectionController::class);
 
     Route::resource('classrooms', ClassroomController::class);
@@ -86,6 +84,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('supplements/data', [SupplementController::class, 'data'])->name('supplements.data');
     Route::get('supplements/result', [SupplementController::class, 'result'])->name('supplements.result');
     Route::get('supplements/list', [SupplementController::class, 'list'])->name('supplements.list');
+    Route::get('supplements/check-list', [SupplementController::class, 'checkList'])->name('supplements.check.list');
 
 
     Route::resource('teachers', TeacherController::class);

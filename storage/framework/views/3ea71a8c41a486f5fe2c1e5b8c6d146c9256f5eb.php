@@ -9,6 +9,10 @@
     <link rel="icon" href="<?php echo e(cache('settings') != null ? asset('uploads/'.cache('settings')['logo']) : asset('/uploads/settings/logo.png')); ?>">
     <title><?php echo e(cache('settings') != null ? cache('settings')['university_name'] : ''); ?> <?php echo $__env->yieldContent('title'); ?></title>
 
+    <?php if(isset($slot)): ?>
+        <link rel="stylesheet" href="<?php echo e(asset('css/app.css')); ?>">
+    <?php endif; ?>
+    
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="<?php echo e(asset('css/simplebar.css')); ?>">
 
@@ -30,8 +34,12 @@
         <main role="main" class="main-content">
             <div class="container-fluid">
                 <?php echo $__env->yieldContent('content'); ?>
+                <?php if(isset($slot)): ?>
+                    <?php echo e($slot); ?>
+
+                <?php endif; ?>
                 <?php echo $__env->make('layouts.modals.students-list-modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                <?php echo $__env->make('layouts.modals.supplements-list-modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                <?php echo $__env->make('layouts.modals.general-list-modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                 <?php echo $__env->make('layouts.modals.student-result-modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div> <!-- .container-fluid -->
             <?php echo $__env->make('layouts.modals.notify-shortcut', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
@@ -50,6 +58,8 @@
     <script src="<?php echo e(asset('js/config.js')); ?>"></script>
 
     <?php echo $__env->make('layouts.extends.ajax-get-classrooms', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php echo $__env->make('layouts.extends.ajax-get-semesters', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php echo $__env->make('layouts.extends.ajax-get-subject-teacher', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <?php echo $__env->yieldContent('js'); ?>
 
     <script src="<?php echo e(asset('js/apps.js')); ?>"></script>

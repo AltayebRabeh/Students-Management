@@ -6,14 +6,14 @@
     <!-- Small table -->
     <div class="col-md-12 my-4">
         <div class="mb-4">
-            <h2 class="h4">إضافة طريقة </h2>
+            <h2 class="h4">إضافة معادلة </h2>
         </div>
         <form action="{{ route('equations.store') }}" method="post" novalidate>
             @csrf
             @method('POST')
             <div class="form-row">
                 <div class="col-md-12 mb-3">
-                    <label for="name">إسم الطريقة</label>
+                    <label for="name">إسم المعادلة</label>
                     <input type="text" name="name" class="form-control" id="name" value="" required>
                     @error('name')
                         <span class="text-danger">{{ $message }}</span>

@@ -17,6 +17,7 @@
                     @include('layouts.extends.report-header')
                     <p class="text-muted"><strong>قسم {{ $section }}</strong></p>
                     <p class="text-muted"><strong>الصف</strong> ({{ $classroom }})</p>
+                    <p class="text-muted"><strong>قائمة الطلاب</strong></p>
                 </div>
                     <table style="width:100%; font-size:24px" border="1">
                         <thead>

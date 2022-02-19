@@ -110,8 +110,3 @@
 
 @endsection
 
-@section('js')
-
-    @include('layouts.extends.ajax-get-semesters')
-
-@stop

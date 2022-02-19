@@ -24,7 +24,7 @@
                         },
                     });
                 } else {
-                    console.log('AJAX load did not work');
+                    console.log('AJAX load did not work Hi');
                 }
             });
         });

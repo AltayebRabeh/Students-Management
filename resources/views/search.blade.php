@@ -8,6 +8,10 @@
         <div class="d-flex mb-4">
             <h2 class="h4">نتائج البحث</h2>
         </div>
+        @if(!$students->first() && !$teachers->first() && !$subjects->first())
+            <p class="text-danger">لايوجد نتائج</p>
+        @endif
+
         @if($students->first())
             <div class="table-responsive">
                 <!-- table -->
@@ -94,7 +98,7 @@
 
         @if($subjects->first())
             <hr>
-            
+
             <div class="table-responsive">
                 <!-- table -->
                 <table class="table table-borderless table-hover">

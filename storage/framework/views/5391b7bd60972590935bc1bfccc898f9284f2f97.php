@@ -1,6 +1,4 @@
-@extends('layouts.main')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="row justify-content-center">
       <div class="col-12 col-lg-12 col-xl-12">
         <div class="row align-items-center mb-4">
@@ -14,12 +12,12 @@
         <div class="card shadow">
           <div class="card-body px-1" id="printDocument">
                 <div class="col-12 text-center mb-4">
-                    @include('layouts.extends.report-header')
-                    <p class="text-muted"><strong>قسم {{ $section }}</strong></p>
-                    <p class="text-muted"><strong>الصف</strong> ({{ $classroom }})</p>
-                    @if($subject)
-                    <p class="text-muted"><strong>المادة</strong> ({{ $subject }})</p>
-                    @endif
+                    <?php echo $__env->make('layouts.extends.report-header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                    <p class="text-muted"><strong>قسم <?php echo e($section); ?></strong></p>
+                    <p class="text-muted"><strong>الصف</strong> (<?php echo e($classroom); ?>)</p>
+                    <?php if($subject): ?>
+                    <p class="text-muted"><strong>المادة</strong> (<?php echo e($subject); ?>)</p>
+                    <?php endif; ?>
                     <p class="text-muted"><strong>قائمة الملاحق والبدائل</strong></p>
                 </div>
                     <table style="width:100%; font-size:24px" border="1">
@@ -31,17 +29,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($students as $student)
+                            <?php $__empty_1 = true; $__currentLoopData = $students; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $student): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                             <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $student->university_number }}</td>
-                                <td>{{ $student->name }}</td>
+                                <th scope="row"><?php echo e($loop->iteration); ?></th>
+                                <td><?php echo e($student->university_number); ?></td>
+                                <td><?php echo e($student->name); ?></td>
                             </tr>
-                            @empty
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                             <tr>
                                 <td>لايوجد بيانات</td>
                             </tr>
-                            @endforelse
+                            <?php endif; ?>
                         </tbody>
                     </table>
               </div> <!-- /.row -->
@@ -49,4 +47,6 @@
         </div> <!-- /.card -->
       </div> <!-- /.col-12 -->
     </div> <!-- .row -->
-@stop
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/altayeb/Desktop/university/resources/views/supplements/list.blade.php ENDPATH**/ ?>
