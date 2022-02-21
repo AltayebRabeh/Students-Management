@@ -8,7 +8,8 @@
         </div>
         <div class="card shadow">
             <div class="card-body">
-                <form action="<?php echo e(route('grades.semester.result')); ?>" method="GET">
+                <form action="<?php echo e(route('supplements.result')); ?>" method="GET">
+
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label for="section_id">إختار القسم</label>
@@ -114,4 +115,4 @@ unset($__errorArgs, $__bag); ?>
 
 
 
-<?php echo $__env->make('layouts.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/altayeb/Desktop/university/resources/views/grades/semester-data.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/altayeb/Desktop/university/resources/views/supplements/data.blade.php ENDPATH**/ ?>

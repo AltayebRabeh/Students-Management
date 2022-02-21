@@ -41,7 +41,7 @@
                 @include('layouts.modals.general-list-modal')
                 @include('layouts.modals.student-result-modal')
             </div> <!-- .container-fluid -->
-            @include('layouts.modals.notify-shortcut')
+            {{-- @include('layouts.modals.shortcut') --}}
         </main> <!-- main -->
     </div> <!-- .wrapper -->
     <div class="loading">

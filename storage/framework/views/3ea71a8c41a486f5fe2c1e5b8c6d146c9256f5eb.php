@@ -42,7 +42,7 @@
                 <?php echo $__env->make('layouts.modals.general-list-modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                 <?php echo $__env->make('layouts.modals.student-result-modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div> <!-- .container-fluid -->
-            <?php echo $__env->make('layouts.modals.notify-shortcut', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            
         </main> <!-- main -->
     </div> <!-- .wrapper -->
     <div class="loading">

@@ -17,6 +17,7 @@ use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SupplementController;
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\StudentGradesController;
 use App\Http\Controllers\StudentArchiveController;
 use App\Http\Controllers\SubjectTeacherController;
@@ -46,7 +47,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
-    
+
     Route::resource('sections', SectionController::class);
 
     Route::resource('classrooms', ClassroomController::class);
@@ -117,6 +118,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
 
     Route::resource('users', UserController::class);
+
+    Route::get('/activity-log', [ActivityLogController::class, 'activityLog'])->name('activity.log');
 
 });
 

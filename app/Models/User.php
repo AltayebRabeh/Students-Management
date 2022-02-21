@@ -3,15 +3,17 @@
 namespace App\Models;
 
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
 use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
+use Laratrust\Traits\LaratrustUserTrait;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable
 {
@@ -22,6 +24,16 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use SoftDeletes;
+    use LogsActivity;
+
+    public function getActivitylogOptions() : LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('Users')
+        ->setDescriptionForEvent(fn(string $eventName) => "This model has been {$eventName}")
+        ->logOnly(['name', 'username', 'email', 'status'])
+        ->dontLogIfAttributesChangedOnly(['text']);
+    }
 
     /**
      * The attributes that are mass assignable.
