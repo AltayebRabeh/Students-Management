@@ -17,7 +17,6 @@ class ClassroomSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create();
         Classroom::insert([
             ['name' => 'الاول'],
             ['name' => 'الثاني'],

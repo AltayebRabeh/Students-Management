@@ -24,11 +24,10 @@ class SectionSeeder extends Seeder
             'دبلوم نظم',
         ];
 
-        $faker = Factory::create();
         for ($i=0; $i < 5; $i++) {
             Section::create([
                 'name' => $sections[$i],
-                'description' => $faker->paragraph,
+                'description' => "ًWrite something here",
                 'count_of_classroom' => random_int(3,5),
                 'user_id' => User::all()->first()->id,
             ]);

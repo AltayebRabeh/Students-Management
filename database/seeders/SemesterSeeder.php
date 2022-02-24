@@ -17,7 +17,6 @@ class SemesterSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create();
         Semester::insert([
             ['name' => 'الاول', 'classroom_id' => 1],
             ['name' => 'الثاني', 'classroom_id' => 1],
