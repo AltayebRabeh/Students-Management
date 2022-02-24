@@ -8,7 +8,7 @@
         <div class="mb-4">
             <h2 class="h4">إضافة قسم </h2>
         </div>
-        <form action="{{ route('sections.store') }}" method="post">
+        <form action="{{ route('sections.store') }}" id="addSection" method="post">
             @csrf
             @method('POST')
             <div class="form-row">

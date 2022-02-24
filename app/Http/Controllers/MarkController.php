@@ -28,7 +28,7 @@ class MarkController extends Controller
     public function create()
     {
         $equation = Equation::first();
-        
+
         if(!$equation) {
             toastr()->warning('لايوجد طريقة حساب');
             return redirect()->route('equations.index');
@@ -46,7 +46,7 @@ class MarkController extends Controller
     public function store(MarkRequest $request)
     {
         $equation = Equation::first();
-        
+
         if(!$equation) {
             toastr()->warning('لايوجد طريقة حساب');
             return redirect()->route('equations.index');
@@ -71,7 +71,7 @@ class MarkController extends Controller
             }
 
             $mark = Mark::where('min', '==', $request->min)->where('max', '==', $request->max)->first();
-        
+
             if($mark){
                 toastr()->error('الدرجات يحملها رمز اخر');
                 return redirect()->back();
@@ -79,8 +79,8 @@ class MarkController extends Controller
 
             Mark::create([
                 'mark' => $request->mark,
-                'min' => $request->min, 
-                'max' => $request->max, 
+                'min' => $request->min,
+                'max' => $request->max,
                 'fail' => isset($request->fail) ? true : false,
                 'calculation' => isset($request->calculation) ? true : false,
                 'equation_id' => $equation->id,
@@ -92,7 +92,7 @@ class MarkController extends Controller
         }
 
         if($request->min <= 100 && $request->max <= 100){
-            
+
             if($request->min == $request->max) {
                 toastr()->error('يجب ان لا تتساوى الارقام');
                 return redirect()->route('marks.index');
@@ -104,7 +104,7 @@ class MarkController extends Controller
             }
 
             $mark = Mark::whereBetween('min', [$request->min, $request->max])->orWhereBetween('max', [$request->min, $request->max])->first();
-            
+
             if($mark) {
                 toastr()->error('يوجد تداخل في الدرجات');
                 return redirect()->back();
@@ -113,16 +113,16 @@ class MarkController extends Controller
             $fail = isset($request->fail) ? true : false;
 
             $mark = Mark::whereFail(true)->first();
-            
+
             if($mark && $fail) {
                 toastr()->error('لا يمكن إدخال اختيار اكثر من رمز رسوب');
                 return redirect()->back();
             }
 
             Mark::create([
-                'mark' => $request->mark, 
-                'min' => $request->min, 
-                'max' => $request->max, 
+                'mark' => $request->mark,
+                'min' => $request->min,
+                'max' => $request->max,
                 'fail' => $fail,
                 'equation_id' => $equation->id,
                 'user_id' => auth()->user()->id,

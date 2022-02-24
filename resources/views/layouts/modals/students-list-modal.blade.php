@@ -1,7 +1,7 @@
 <div class="modal fade" id="studentListModal" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="{{ route('students.list') }}" method="GET">
+            <form action="{{ route('students.list') }}" id="studentListForm" method="GET">
                 <div class="modal-header">
                     <h5 class="modal-title" id="varyModalLabel">عرض قائمة الطلاب</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

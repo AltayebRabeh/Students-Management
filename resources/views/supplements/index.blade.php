@@ -10,7 +10,7 @@
         </div>
         <div class="card shadow">
             <div class="card-body">
-                <form action="{{ route('supplements.create') }}" method="POST">
+                <form action="{{ route('supplements.create') }}" id="addSupplements" method="POST">
                     @csrf
                     @method('POST')
                     <div class="form-row">

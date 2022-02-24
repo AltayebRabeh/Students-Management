@@ -8,7 +8,7 @@
         <div class="d-flex mb-4">
             <h2 class="h4">إضافة طالب</h2>
         </div>
-        <form id="students" action="{{ route('students.store') }}" method="post" class="form">
+        <form id="students" action="{{ route('students.store') }}" id="addStudent" method="post" class="form">
             @csrf
             <div class="form-row">
                 <div class="col-md-4 mb-3">
@@ -54,13 +54,13 @@
                     <div class="col-md-4">
                         <label>الرقم الجامعي</label>
                         <div class="input-group">
-                            <input type="text" name="students[0][university_number]" class="form-control" value="" required>
+                            <input type="text" placeholder="الرقم الجامعي" name="students[0][university_number]" class="form-control" value="" required>
                         </div>
                     </div>
                     <div class="col-md-8">
                         <label>إسم الطالب</label>
                         <div class="input-group">
-                            <input type= "text" name="students[0][name]" class="form-control" value="" required>
+                            <input type= "text" placeholder="إسم الطالب" name="students[0][name]" class="form-control" value="" required>
                         </div>
                     </div>
                 </div>
@@ -93,12 +93,12 @@
                 <div class="form-row data-repeater-item mt-1">
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input type="text" name="students[` + length + `][university_number]" class="form-control" value="" required>
+                            <input type="text" placeholder="الرقم الجامعي" name="students[` + length + `][university_number]" class="form-control" value="" required>
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="input-group">
-                            <input type="text" name="students[` + length + `][name]" class="form-control" value="" required>
+                            <input type="text" placeholder="إسم الطالب" name="students[` + length + `][name]" class="form-control" value="" required>
                             <a href="#" class="btn btn-danger ml-2 remove-repeater"><i class="fe fe-trash"></i></a>
                         </div>
                     </div>
@@ -146,18 +146,16 @@
                         arr = key.split('.');
                         if(arr.length == 1){
                             $('form#students select[name="'+key+'"]').addClass('is-invalid').parent().append("<span class='text-danger d-block'>"+value+"</span>");
-                            $('form#students select[name="'+key+'"]').foucs();
+                            $('form#students select[name="'+key+'"]').foucs;
                         } else {
                             input = `${arr[0]}[${arr[1]}][${arr[2]}]`;
                             $('form#students input[name="'+ input +'"]').addClass('is-invalid').parent().parent().append("<span class='text-danger d-block'>"+value+"</span>");
-                            $('form#students input[name="'+ input +'"]').foucs();
+                            $('form#students input[name="'+ input +'"]').foucs;
                         }
                     }
                 }
-                $('.loading').css("display", "none");
-
             });
-
+            $('.loading').css("display", "none");
         });
 
     });

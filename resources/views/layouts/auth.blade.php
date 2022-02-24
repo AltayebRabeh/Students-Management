@@ -22,7 +22,7 @@
     <script src="{{ asset('js/moment.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/apps.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/app.js') }}" defer></script>
     <script>
       window.dataLayer = window.dataLayer || [];
 

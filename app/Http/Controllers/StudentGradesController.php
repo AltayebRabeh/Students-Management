@@ -108,7 +108,7 @@ class StudentGradesController extends Controller
         {
             $mark = Mark::select('id')->where('min', '<=', $grade['grade'])->where('max', '>=', $grade['grade'])->first();
 
-            $re_exam = $mark->fail == 1 || $mark->max > 100 ? 1 : 2;
+            $re_exam = $mark->fail == 1 || $mark->max > 100 ? 1 : 0;
 
             Grade::create([
                 'grade' => $grade['grade'],
@@ -207,15 +207,17 @@ class StudentGradesController extends Controller
                 ->with([
                     'grades' => function($q) use($student)
                     {
-                        return $q->with(['mark'])
-                                ->where('student_id', $student->id);
+                        return $q
+                                ->with(['mark'])
+                                ->where('student_id', $student->id)
+                                ->withTrashed();
                     },
                     'subject' => function($q) use($student)
                     {
                         return $q->withTrashed();
                     }
                 ])
-                ->whereHas('grades', function($q) use($student) {$q->where('student_id', $student->id);})
+                ->whereHas('grades', function($q) use($student) {$q->withTrashed()->where('student_id', $student->id);})
                 ->whereHas('grades.student')
                 ->whereSectionId($request->section_id)
                 ->whereYearId($request->year_id)

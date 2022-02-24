@@ -3,18 +3,21 @@
 
         // Get semesters By Section
         $('select[name="classroom_id"]').on('change', function() {
+
+            var id = $(this).parents('form').attr('id');
+
             var classroom_id = $(this).val();
-            $('select[name="semester_id"]').empty();
+            $('#' + id + ' select[name="semester_id"]').empty();
             if (classroom_id) {
                 $.ajax({
                     url: "{{ URL::to('semesters') }}/" + classroom_id,
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
-                        $('select[name="semester_id"]').empty();
-                        $('select[name="semester_id"]').append('<option></option>');
+                        $('#' + id + ' select[name="semester_id"]').empty();
+                        $('#' + id + ' select[name="semester_id"]').append('<option></option>');
                         $.each(data, function(key, value) {
-                            $('select[name="semester_id"]').append('<option value="' +
+                            $('#' + id + ' select[name="semester_id"]').append('<option value="' +
                                 key + '">' + value + '</option>');
                         });
                     },

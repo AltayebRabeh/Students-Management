@@ -69,12 +69,16 @@
                                                     <td>{{ $grade->subjectTeacher->subject->name }}</td>
                                                     <td style="text-align:center;"><sup style="color:red">{{ $grade->fail >= 1 ? '*' : '' }}</sup>{{ $grade->mark->mark }}</td>
                                                 </tr>
-                                                <?php $grade->mark->calculation == 1 ? $semester_total[] = ($grade->grade / (100 / $grade->mark->equation->cgp)) * $grade->subjectTeacher->hours : '' ?>
                                                 <?php $grade->mark->calculation == 1 ? $semester_hours[] = $grade->subjectTeacher->hours : '' ?>
-                                                <?php $grade->mark->calculation == 1 ? $year_total[] = ($grade->grade / (100 / $grade->mark->equation->cgp)) * $grade->subjectTeacher->hours : '' ?>
                                                 <?php $grade->mark->calculation == 1 ? $year_hours[] = $grade->subjectTeacher->hours : '' ?>
-                                                <?php $grade->mark->calculation == 1 ? $total[] = ($grade->grade / (100 / $grade->mark->equation->cgp)) * $grade->subjectTeacher->hours : '' ?>
                                                 <?php $grade->mark->calculation == 1 ? $hours[] = $grade->subjectTeacher->hours : '' ?>
+                                                <?php
+                                                    if($grade->mark->calculation == 1 && $grade->grade <= 100)  {
+                                                        $total[] = ($grade->grade / (100 / $grade->mark->equation->cgp)) * $grade->subjectTeacher->hours;
+                                                        $semester_total[] = ($grade->grade / (100 / $grade->mark->equation->cgp)) * $grade->subjectTeacher->hours;
+                                                        $year_total[] = ($grade->grade / (100 / $grade->mark->equation->cgp)) * $grade->subjectTeacher->hours;
+                                                    }
+                                                ?>
                                                 <?php $grade->mark->fail == 1 ? $fails += $grade->mark->fail : '' ?>
                                                 <?php $cgp_success = $grade->mark->equation->cgp_success; ?>
                                                 <?php $equations_fails = $grade->mark->equation->fails; ?>
@@ -90,7 +94,7 @@
                                             <tr>
                                                 <th class="d-flex justify-content-between"  style="text-align:center;padding-top: 10px;padding-bottom: 20px;border-bottom: 2px solid;">
                                                     <span> المعدل السنوي [{{ number_format(array_sum($year_total) != 0 ? array_sum($year_total) / array_sum($year_hours) : 00, 2) }}]</span>
-                                                    @if (number_format(array_sum($year_total) != 0 ? array_sum($year_total) / array_sum($year_hours) : 00, 2) < $cgp_success || ($equations_fails > 0 && $equations_fails <= $fails))
+                                                    @if (number_format(array_sum($year_total) != 0 ? array_sum($year_total) / array_sum($year_hours) : 00, 2) < $cgp_success || $equations_fails < $fails)
                                                         <span class="text-danger">إعادة</span>
                                                     @else
                                                         <span class="text-success">نجاح</span>

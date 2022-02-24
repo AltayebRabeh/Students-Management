@@ -10,7 +10,7 @@
         </div>
         <div class="card shadow">
             <div class="card-body">
-                <form action="{{ route('supplements.result') }}" method="GET">
+                <form action="{{ route('supplements.result') }}" id="supplementsData" method="GET">
 
                     <div class="form-row">
                         <div class="col-md-4 mb-3">

@@ -8,7 +8,7 @@
         <div class="mb-4">
             <h2 class="h4">إضافة استاذ </h2>
         </div>
-        <form action="{{ route('teachers.store') }}" method="post">
+        <form action="{{ route('teachers.store') }}" id="addTeacher" method="post">
             @csrf
             @method('POST')
             <div class="form-row">

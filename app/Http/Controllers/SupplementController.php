@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DataRequest;
 use App\Models\Mark;
 use App\Models\Year;
 use App\Models\Grade;
@@ -87,7 +88,7 @@ class SupplementController extends Controller
         {
             $mark = Mark::select('id', 'fail', 'max')->where('min', '<=', $grade['grade'])->where('max', '>=', $grade['grade'])->first();
 
-            $re_exam = $mark->fail == 1 || $mark->max > 100 ? 1 : 2;
+            $re_exam = $mark->fail == 1 || $mark->max > 100 ? 1 : 0;
 
             $student_grade = Grade::whereStudentId($grade['student_id'])
                             ->whereSectionId($request->section_id)
@@ -120,7 +121,7 @@ class SupplementController extends Controller
         return view('supplements.data');
     }
 
-    public function result(StoreGradeRequest $request)
+    public function result(DataRequest $request)
     {
         $students = Student::with(['grades' => function($q) use($request){
                         $q->with([
@@ -129,6 +130,7 @@ class SupplementController extends Controller
                                     return $q->withTrashed();
                                 }])->withTrashed()->select('id', 'hours', 'subject_id');},
                         ])
+                        ->withTrashed()
                         ->whereSectionId($request->section_id)
                         ->whereYearId($request->year_id)
                         ->whereClassroomId($request->classroom_id)
@@ -136,7 +138,7 @@ class SupplementController extends Controller
                         ->orderBy('subject_teacher_id', 'ASC');
                     }])
                     ->whereHas('grades', function($q) use($request){
-                        $q->whereIn('re_exam', [1, 2])
+                        $q->where('re_exam', 1)
                         ->whereSectionId($request->section_id)
                         ->orderBy('subject_teacher_id', 'ASC');
                     })->get();
@@ -170,29 +172,37 @@ class SupplementController extends Controller
         $section = Section::find($request->section_id)->name;
         $classroom = Classroom::find($request->classroom_id)->name;
 
+        $semesrer = null;
+        if(isset($request->semester_id)) {
+            $semesrer = Semester::find($request->semester_id)->name;
+        }
+
         $subject = null;
         if(isset($request->subject_teacher_id)) {
             $subject = Subject::find($request->subject_teacher_id)->name;
         }
 
         $students = Student::whereHas('grades', function($q) use($request){
-            $q->where('re_exam', 1)->orWhere('re_exam', 2);
+            $q->where('re_exam', '!=', 0);
             if(isset($request->subject_teacher_id)) {
                 $q = $q->where('subject_teacher_id', $request->subject_teacher_id);
+            }
+            if(isset($request->semester_id)) {
+                $q = $q->whereSemesterId($request->semester_id);
             }
         })
         ->whereSectionId($request->section_id)
         ->whereClassroomId($request->classroom_id)
         ->get();
 
-        return view('supplements.list', compact('students'))->with(['classroom' => $classroom, 'section' => $section, 'subject' => $subject]);
+        return view('supplements.list', compact('students'))->with(['classroom' => $classroom, 'semesrer' => $semesrer, 'section' => $section, 'subject' => $subject]);
     }
 
     public function checkList(Request $request)
     {
-        if(!(isset($request->section_id) 
-            && isset($request->classroom_id) 
-            && isset($request->semester_id) 
+        if(!(isset($request->section_id)
+            && isset($request->classroom_id)
+            && isset($request->semester_id)
             && isset($request->year_id)
              && isset($request->subject_teacher_id))) {
             toastr()->warning('الرجاء مل  البيانات المطلوبة');
@@ -220,11 +230,11 @@ class SupplementController extends Controller
             ->whereYearId($request->year_id)
             ->get();
             $rexam = false;
-            
+
         } else {
             $students = Student::whereHas('grades', function($q) use($request){
-                $q->where('re_exam', 1)->orWhere('re_exam', 2);
-                $q = $q->where('subject_teacher_id', $request->subject_teacher_id);
+                $q->where('re_exam', '!=', 0)
+                    ->where('subject_teacher_id', $request->subject_teacher_id);
             })
             ->whereSectionId($request->section_id)
             ->whereClassroomId($request->classroom_id)

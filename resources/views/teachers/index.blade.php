@@ -11,7 +11,7 @@
             </div>
             <div class="card shadow">
                 <div class="card-header">
-                    <form action="{{ route('teachers.index') }}" method="get">
+                    <form action="{{ route('teachers.index') }}" id="teachers" method="get">
                         @method('GET')
                         <div class="form-row">
                             <div class="col-md-11 mb-3">

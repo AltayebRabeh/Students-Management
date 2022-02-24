@@ -43,7 +43,7 @@
                                 <?php $total = [] ?>
                                 <?php $fails = 0 ?>
                                 @foreach ($student->grades as $grade)
-                                    <?php $grade->mark->calculation == 1 ? $total[] = ($grade->grade / (100 / $grade->mark->equation->cgp)) * $grade->subjectTeacher->hours : ''; ?>
+                                    <?php $grade->mark->calculation == 1 && $grade->grade <= 100 ? $total[] = ($grade->grade / (100 / $grade->mark->equation->cgp)) * $grade->subjectTeacher->hours : 0; ?>
                                     <?php $grade->mark->calculation == 1 ? $hours[] = $grade->subjectTeacher->hours : ''; ?>
                                     <?php $fails += $grade->mark->fail ?>
                                     <td style="text-align:center;"><sup style="color:red">{{ $grade->fail >= 1 ? '*' : '' }}</sup>{{ $grade->mark->mark }}</td>

@@ -82,7 +82,7 @@ class User extends Authenticatable
     {
         return $this->profile_photo_path
                     ? Storage::disk($this->profilePhotoDisk())->url($this->profile_photo_path)
-                    : Storage::disk($this->profilePhotoDisk())->url("profile-photos/default.png");
+                    : asset("uploads/default.png");
     }
 
     public function students() {

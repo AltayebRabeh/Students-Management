@@ -50,30 +50,28 @@ class RolePermisionSeeder extends Seeder
         $createSections = Permission::create(['name' => 'create-sections','display_name' => 'إضافة الاقسام',]);
         $editSections = Permission::create(['name' => 'edit-sections','display_name' => 'تعديل الاقسام',]);
         $deleteSections = Permission::create(['name' => 'delete-sections','display_name' => 'حذف الاقسام',]);
-        
+
         $createSemesterGrades = Permission::create(['name' => 'create-semester-grades','display_name' => 'إضافة درجات فصل',]);
         $editSemesterGrades = Permission::create(['name' => 'edit-semester-grades','display_name' => 'زيادة درجات فصل',]);
         $deleteSemesterGrades = Permission::create(['name' => 'delete-semester-grades','display_name' => 'حذف درجات فصل',]);
         $createSupplements = Permission::create(['name' => 'create-supplements','display_name' => 'إضافة درجات ملحق او بديل',]);
-
         $createstudentGrades = Permission::create(['name' => 'create-student-grades','display_name' => 'إضافة درجات طالب',]);
-        $deletestudentGrades = Permission::create(['name' => 'delete-student-grades','display_name' => 'حذف درجات طالب',]);
 
         $showTeachers = Permission::create(['name' => 'show-teachers','display_name' => 'عرض الاساتذة',]);
         $createTeachers = Permission::create(['name' => 'create-teachers','display_name' => 'إضافة الاساتذة',]);
         $editTeachers = Permission::create(['name' => 'edit-teachers','display_name' => 'تعديل الاساتذة',]);
         $deleteTeachers = Permission::create(['name' => 'delete-teachers','display_name' => 'حذف الاساتذة',]);
-        
+
         $showSubjects = Permission::create(['name' => 'show-subjects','display_name' => 'عرض المواد',]);
         $createSubjects = Permission::create(['name' => 'create-subjects','display_name' => 'إضافة مواد',]);
         $editSubjects = Permission::create(['name' => 'edit-subjects','display_name' => 'تعديل مواد',]);
         $deleteSubjects = Permission::create(['name' => 'delete-subjects','display_name' => 'حذف مواد',]);
-        
+
         $showSubjectsTeachers = Permission::create(['name' => 'show-subjects-teachers','display_name' => 'عرض المواد و الاساتذة',]);
         $addSubjectsTeachers = Permission::create(['name' => 'create-subjects-teachers','display_name' => 'إضافة مواد الى الاساتذة',]);
         $editSubjectsTeachers = Permission::create(['name' => 'edit-subjects-teachers','display_name' => 'تعديل المواد و الاساتذة',]);
         $deleteSubjectsTeachers = Permission::create(['name' => 'delete-subjects-teachers','display_name' => 'حذف المواد و الاساتذة',]);
-        
+
         $showArchive = Permission::create(['name' => 'show-archive','display_name' => 'عرض الارشيف',]);
         $addArchive = Permission::create(['name' => 'create-archive','display_name' => 'السماح بالارشفة',]);
         $unArchive = Permission::create(['name' => 'un-archive','display_name' => 'إلغاء الارشفة',]);
@@ -88,10 +86,9 @@ class RolePermisionSeeder extends Seeder
         $createEquations = Permission::create(['name' => 'create-equations','display_name' => 'إضافة المعادلات',]);
         $editEquations = Permission::create(['name' => 'edit-equations','display_name' => 'تعديل المعادلات',]);
         $deleteEquations = Permission::create(['name' => 'delete-equations','display_name' => 'حذف المعادلات',]);
-        
+
         $showMarks = Permission::create(['name' => 'show-marks','display_name' => 'عرض الدرجات والرموز',]);
         $createMarks = Permission::create(['name' => 'create-marks','display_name' => 'إضافة الدرجات والرموز',]);
-        $editMarks = Permission::create(['name' => 'edit-marks','display_name' => 'تعديل الدرجات والرموز',]);
         $deleteMarks = Permission::create(['name' => 'delete-marks','display_name' => 'حذف الدرجات والرموز',]);
 
         $showRelays = Permission::create(['name' => 'show-relays','display_name' => 'عرض الترحيلات',]);

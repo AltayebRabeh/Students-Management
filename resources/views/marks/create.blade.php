@@ -36,13 +36,13 @@
             </div>
             <hr class="my-4">
             <div class="form-row">
-                <div class="col-md-2">
+                <div class="col-md-2 col-sm-6">
                   <div class="custom-control custom-switch">
                     <input type="checkbox" name="fail" class="custom-control-input" id="fail">
                     <label class="custom-control-label" for="fail">رسوب</label>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     <div class="custom-control custom-switch">
                       <input type="checkbox" name="calculation" class="custom-control-input" id="calculation" checked>
                       <label class="custom-control-label" for="calculation">تحسب في المعدل</label>

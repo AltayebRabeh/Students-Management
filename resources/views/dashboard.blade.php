@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@ability('admin', 'show-dashboard-statistics')
+
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/apexcharts.css')}}">
 @endsection
@@ -10,7 +12,7 @@
         <div class="col-12">
           <div class="row">
             <div class="col-md-6 col-xl-3 mb-4">
-              <div class="card shadowy border-0">
+              <div class="card shadow border-0">
                 <div class="card-body">
                   <div class="row align-items-center">
                     <div class="col-3 text-center">
@@ -258,4 +260,5 @@ lineChartCtn && (lineChart = new ApexCharts(lineChartCtn, lineChartoptions)).ren
 
 @endsection
 
+@endability
 

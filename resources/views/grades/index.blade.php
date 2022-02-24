@@ -10,7 +10,7 @@
         </div>
         <div class="card shadow">
             <div class="card-body">
-                <form action="{{ route('grades.create') }}" method="POST">
+                <form action="{{ route('grades.create') }}" id="gradesCreate" method="POST">
                     @csrf
                     @method('POST')
                     <div class="form-row">

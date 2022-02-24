@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DataRequest;
 use App\Models\Mark;
 use App\Models\Year;
 use App\Models\Grade;
@@ -119,7 +120,7 @@ class GradeController extends Controller
         return view('grades.semester-data');
     }
 
-    public function semesterResult(StoreGradeRequest $request)
+    public function semesterResult(DataRequest $request)
     {
         $students = Student::with(['grades' => function($q) use($request){
                         $q->with([
@@ -128,6 +129,7 @@ class GradeController extends Controller
                                     return $q->withTrashed();
                                 }])->withTrashed()->select('id', 'hours', 'subject_id');},
                         ])
+                        ->withTrashed()
                         ->whereSectionId($request->section_id)
                         ->whereYearId($request->year_id)
                         ->whereClassroomId($request->classroom_id)
@@ -135,7 +137,8 @@ class GradeController extends Controller
                         ->orderBy('subject_teacher_id', 'ASC');
                     }])
                     ->whereHas('grades', function($q) use($request){
-                        $q->whereSectionId($request->section_id)
+                        $q->withTrashed()
+                        ->whereSectionId($request->section_id)
                         ->whereYearId($request->year_id)
                         ->whereClassroomId($request->classroom_id)
                         ->whereSemesterId($request->semester_id)
@@ -180,7 +183,7 @@ class GradeController extends Controller
                 ->whereSemesterId($request->semester_id)
                 ->whereYearId($request->year_id)
                 ->whereSubjectTeacherId($request->subject_teacher_id)
-                ->delete();
+                ->forceDelete();
 
             toastr()->success('تم حذف الدرجات لهذه المادة بنجاح');
             return redirect()->back();
@@ -195,7 +198,7 @@ class GradeController extends Controller
     }
 
     public function increaseSuccessStore(StoreIncreaseRequest $request) {
-        
+
         $students = Student::select('id', 'university_number', 'name')
         ->with(['grades' => function($q) use($request){
             return $q->whereSectionId($request->section_id)
@@ -207,7 +210,7 @@ class GradeController extends Controller
         ->whereHas('grades', function($q)use($request){
             $q = $q->whereSubjectTeacherId($request->subject_teacher_id);
             $q = $q->where('grade', '<=', 100);
-            
+
             if($request->grades_from != null && $request->grades_from >= 0 && $request->grades_from <= 100) {
                 $q = $q->where('grade', '>=', $request->grades_from);
             }
@@ -220,7 +223,7 @@ class GradeController extends Controller
         ->whereYearId($request->year_id)
         ->whereClassroomId($request->classroom_id)
         ->get();
-        
+
         if(!$students) {
             toastr()->warning('لايوجد صفوف تأكد من المدخلات');
             return true;
@@ -229,14 +232,14 @@ class GradeController extends Controller
         if($request->increase_type === 'precentage') {
 
             foreach($students as $student){
-                
+
                 $student->grades->first()->grade += (int)($request->increase * $student->grades->first()->grade) / 100;
                 if($student->grades->first()->grade > 100) {
                     $student->grades->first()->grade = 100;
                 }
                 $mark = Mark::select('id', 'fail', 'max')->where('min', '<=', $student->grades->first()->grade)->where('max', '>=', $student->grades->first()->grade)->first();
                 $re_exam = $mark->fail == 1 || $mark->max > 100 ? 1 : 0;
-                
+
                 $student->grades->first()->mark_id = $mark->id;
                 $student->grades->first()->re_exam = $re_exam;
                 $student->grades->first()->save();
@@ -245,7 +248,7 @@ class GradeController extends Controller
         } else {
 
             foreach($students as $student){
-                
+
                 $student->grades->first()->grade += (int) $request->increase;
                 if($student->grades->first()->grade > 100) {
                     $student->grades->first()->grade = 100;

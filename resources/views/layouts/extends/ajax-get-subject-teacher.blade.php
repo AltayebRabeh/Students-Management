@@ -3,12 +3,15 @@
 
             // Get Subjects By Section
             $('select[name="year_id"], select[name="classroom_id"], select[name="section_id"], select[name="semester_id"]').on('change', function() {
-                var year_id = $('#year_id').val(),
-                    section_id = $('#section_id').val(),
-                    classroom_id = $('#classroom_id').val(),
-                    semester_id = $('#semester_id').val();
 
-                $('select[name="subject_teacher_id"]').empty();
+                var id = $(this).parents('form').attr('id');
+
+                var year_id = $('#' + id + ' select[name="year_id"]').val(),
+                    section_id = $('#' + id + ' select[name="section_id"]').val(),
+                    classroom_id = $('#' + id + ' select[name="classroom_id"]').val(),
+                    semester_id = $('#' + id + ' select[name="semester_id"]').val();
+
+                $('#' + id + ' select[name="subject_teacher_id"]').empty();
 
                 if (year_id && section_id && classroom_id && semester_id) {
                     $.ajax({
@@ -16,9 +19,9 @@
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
-                            $('select[name="subject_teacher_id"]').empty();
+                            $('#' + id + ' select[name="subject_teacher_id"]').empty().append('<option disable></option>');
                             $.each(data, function(key, value) {
-                                $('select[name="subject_teacher_id"]').append('<option value="' +
+                                $('#' + id + ' select[name="subject_teacher_id"]').append('<option value="' +
                                     key + '">' + value + '</option>');
                             });
                         },
@@ -28,5 +31,4 @@
                 }
             });
         });
-
     </script>

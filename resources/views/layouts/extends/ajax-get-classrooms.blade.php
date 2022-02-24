@@ -1,20 +1,23 @@
 <script>
     $(document).ready(function() {
-        
+
         // Get Classrooms By Section
         $('select[name="section_id"]').on('change', function() {
+
+            var id = $(this).parents('form').attr('id');
+
             var section_id = $(this).val();
-            $('select[name="classroom_id"]').empty();
+            $('#' + id + ' select[name="classroom_id"]').empty();
             if (section_id) {
                 $.ajax({
                     url: "{{ URL::to('classrooms') }}/" + section_id,
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
-                        $('select[name="classroom_id"]').empty();
-                        $('select[name="classroom_id"]').append('<option></option>');
+                        $('#' + id + ' select[name="classroom_id"]').empty();
+                        $('#' + id + ' select[name="classroom_id"]').append('<option></option>');
                         $.each(data, function(key, value) {
-                            $('select[name="classroom_id"]').append('<option value="' +
+                            $('#' + id + ' select[name="classroom_id"]').append('<option value="' +
                                 key + '">' + value + '</option>');
                         });
                     },
@@ -22,9 +25,9 @@
             } else {
                 console.log('AJAX load did not work');
             }
-            $('select[name="semester_id"]').empty();
+            $('#' + id + ' select[name="semester_id"]').empty();
         });
-        
+
     });
 
 </script>

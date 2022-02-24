@@ -10,7 +10,7 @@
         </div>
         <div class="card shadow">
             <div class="card-body">
-                <form action="{{ route('grades-statistics.result') }}" method="GET">
+                <form action="{{ route('grades-statistics.result') }}" id="gradesStatistics" method="GET">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label for="section_id">إختار القسم</label>

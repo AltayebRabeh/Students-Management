@@ -61,17 +61,6 @@ class EquationController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Equation  $equation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Equation $equation)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Equation  $equation

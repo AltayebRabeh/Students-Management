@@ -10,7 +10,7 @@
         </div>
         <div class="card shadow">
             <div class="card-body">
-                <form id="increase" action="{{ route('grades.increase.success.store') }}" method="POST">
+                <form id="increase" action="{{ route('grades.increase.success.store') }}" id="increaseForm" method="POST">
                     @csrf
                     @method('POST')
                     <div class="form-row">
@@ -119,29 +119,29 @@
     <script>
 
         $(document).ready(function() {
-    
+
             // Send Data with AJAX
             $('#btn-send').click(function (event) {
-    
+
                 $(this).css('disabled', 'disabled');
-                
+
                 $('.loading').css("display", "flex");
-    
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-    
+
                 event.preventDefault();
- 
+
                 $('.text-danger').remove();
-    
+
                 $.ajax({
                     type: "POST",
                     url : "{{ route('grades.increase.success.store') }}",
                     data : $('form#increase').serialize(),
-    
+
                     success  : function(data) {
                         if(data) {
                             window.location.assign("{{ route('grades.increase.success') }}");
@@ -153,17 +153,17 @@
                             $('form#increase select[name="'+key+'"]').parent().append("<span class='text-danger d-block'>"+value+"</span>");
                             $('form#increase input[name="'+key+'"]').parent().append("<span class='text-danger d-block'>"+value+"</span>");
                         }
-    
+
                         $('.loading').css("display", "none");
                     }
-    
+
                 });
-    
+
             });
-    
+
         });
-    
-    
+
+
     </script>
 
 @stop

@@ -43,7 +43,7 @@
                                     <td>{{ $subjectTeacher->subject->name }}</td>
                                     <td><sup style="color:red">{{ $subjectTeacher->grades->first()->fail >= 1 ? '*' : '' }}</sup>{{ $subjectTeacher->grades->first()->mark->mark }}</td>
                                 </tr>
-                                <?php $subjectTeacher->grades->first()->mark->calculation == 1 ? $total[] = ($subjectTeacher->grades->first()->grade / (100 / $subjectTeacher->grades->first()->mark->equation->cgp)) * $subjectTeacher->hours : ''; ?>
+                                <?php $subjectTeacher->grades->first()->mark->calculation == 1 && $subjectTeacher->grades->first()->grade <= 100 ? $total[] = ($subjectTeacher->grades->first()->grade / (100 / $subjectTeacher->grades->first()->mark->equation->cgp)) * $subjectTeacher->hours : 0; ?>
                                 <?php $subjectTeacher->grades->first()->mark->calculation == 1 ? $hours[] = $subjectTeacher->hours : '' ?>
                             @endforeach
                             <tr>

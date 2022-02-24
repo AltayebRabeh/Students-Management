@@ -62,7 +62,7 @@ class RelayController extends Controller
     {
         $relay_type = null;
 
-        $students = Student::with(['section', 'classroom']);
+        $students = Student::where('classroom_id', '!=', 6);
 
         if(isset($request->section_id) && $request->section_id != null){
             $students = $students->whereSectionId($request->section_id);
@@ -79,7 +79,7 @@ class RelayController extends Controller
             $relay_type = 'ترحيل طالب واحد ورقمه الجامعي هو  ' . $request->university_number;
         }
 
-        $students = $students->where('classroom_id', '!=', 6)->get();
+        $students = $students->get();
 
         if(!$students->first()) {
             toastr()->warning('لايوجد بيانات');
@@ -114,71 +114,64 @@ class RelayController extends Controller
                 $gba = 0;
 
                 foreach ($grades as $grade) {
-                    $grade->mark->calculation == 1 ? $total[] = ($grade->grade / (100 / $grade->mark->equation->cgp)) * $grade->subjectTeacher->hours : 0;
+                    $grade->mark->calculation == 1 && $grade->grade <= 100 ? $total[] = ($grade->grade / (100 / $grade->mark->equation->cgp)) * $grade->subjectTeacher->hours : 0;
                     $grade->mark->calculation == 1 ? $hours[] = $grade->subjectTeacher->hours : 0;
-                    $fails += $grade->mark->fail;
+                    $fails += $grade->rexam;
                 }
 
-                $gba = array_sum($total) / array_sum($hours);
+                $gba = number_format(array_sum($total) / array_sum($hours), 2);
 
-                if((isset($relay->cgp) && $relay->cgp != null) && (isset($relay->fails) && $relay->fails != null))
+                if((isset($relay->cgp) && $relay->cgp != null) && $relay->cgp > $gba)
                 {
-                    if($relay->cgp > $gba && $relay->fails < $fails) {
-                        $student->update([
-                            'year_id' => $request->year_id
-                        ]);
-                        RelayStudent::insert([
-                            'reject' => true,
-                            'from_classroom' => $student->classroom_id,
-                            'to_classroom' => $student->classroom_id,
-                            'from_year' => $student->year_id,
-                            'to_year' => $request->year_id,
-                            'student_id' => $student->id,
-                            'relay_id' => $relay->id
-                        ]);
-                        continue;
-                    }
+                    $student->update([
+                        'year_id' => $request->year_id
+                    ]);
+                    RelayStudent::insert([
+                        'reject' => true,
+                        'from_classroom' => $student->classroom_id,
+                        'to_classroom' => $student->classroom_id,
+                        'from_year' => $student->year_id,
+                        'to_year' => $request->year_id,
+                        'student_id' => $student->id,
+                        'relay_id' => $relay->id
+                    ]);
+                    continue;
                 }
-                else if(isset($relay->fails) && $relay->fails != null)
+                else if(isset($relay->fails) && $relay->fails != null && $relay->fails < $fails)
                 {
-                    if($relay->fails < $fails) {
-                        $student->update([
-                            'year_id' => $request->year_id
-                        ]);
-                        RelayStudent::insert([
-                            'reject' => true,
-                            'from_classroom' => $student->classroom_id,
-                            'to_classroom' => $student->classroom_id,
-                            'from_year' => $student->year_id,
-                            'to_year' => $request->year_id,
-                            'student_id' => $student->id,
-                            'relay_id' => $relay->id
-                        ]);
-                        continue;
-                    }
-                }
-                else if(isset($relay->cgp) && $relay->cgp != null)
-                {
-                    if($relay->cgp > $gba) {
-                        $student->update([
-                            'year_id' => $request->year_id
-                        ]);
-                        RelayStudent::insert([
-                            'reject' => true,
-                            'from_classroom' => $student->classroom_id,
-                            'to_classroom' => $student->classroom_id,
-                            'from_year' => $student->year_id,
-                            'to_year' => $request->year_id,
-                            'student_id' => $student->id,
-                            'relay_id' => $relay->id
-                        ]);
-                        continue;
-                    }
+                    $student->update([
+                        'year_id' => $request->year_id
+                    ]);
+                    RelayStudent::insert([
+                        'reject' => true,
+                        'from_classroom' => $student->classroom_id,
+                        'to_classroom' => $student->classroom_id,
+                        'from_year' => $student->year_id,
+                        'to_year' => $request->year_id,
+                        'student_id' => $student->id,
+                        'relay_id' => $relay->id
+                    ]);
+                    continue;
                 }
                 else
                 {
                     $equation = Equation::first();
-                    if($equation->cgp > $gba && ($equation->fails != 0 && $fails >= $equation->fails)) {
+                    if($equation->cgp_success > $gba) {
+                        $student->update([
+                            'year_id' => $request->year_id
+                        ]);
+                        RelayStudent::insert([
+                            'reject' => true,
+                            'from_classroom' => $student->classroom_id,
+                            'to_classroom' => $student->classroom_id,
+                            'from_year' => $student->year_id,
+                            'to_year' => $request->year_id,
+                            'student_id' => $student->id,
+                            'relay_id' => $relay->id
+                        ]);
+                        continue;
+                    }
+                    else if($equation->fails < $fails) {
                         $student->update([
                             'year_id' => $request->year_id
                         ]);

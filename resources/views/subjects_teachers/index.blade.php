@@ -8,7 +8,7 @@
         <div class="col-md-12 my-4">
             <div class="d-flex mb-4">
                 <h2 class="h4">المواد و الاساتذة</h2>
-                <a href="{{ route('subjects-teachers.create') }}" class="btn btn-primary ml-auto">دمج</a>
+                <a href="{{ route('subjects-teachers.create') }}" id="subjectsTeachers" class="btn btn-primary ml-auto">دمج</a>
             </div>
             <div class="card shadow">
                 <div class="card-header">

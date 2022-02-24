@@ -10,9 +10,11 @@
     <title>{{ cache('settings') != null ? cache('settings')['university_name'] : '' }} @yield('title')</title>
 
     @if(isset($slot))
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        @livewireStyles
+        <script src="{{ mix('js/app.js') }}" defer></script>
     @endif
-    
+
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="{{ asset('css/simplebar.css') }}">
 
@@ -61,8 +63,12 @@
     @include('layouts.extends.ajax-get-subject-teacher')
     @yield('js')
 
+
     <script src="{{ asset('js/apps.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    @if(isset($slot))
+        @stack('modals')
+        @livewireScripts
+    @endif
 
     <script>
       window.dataLayer = window.dataLayer || [];

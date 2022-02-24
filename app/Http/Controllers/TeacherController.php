@@ -58,20 +58,9 @@ class TeacherController extends Controller
         if(!$request->has('status')){
             $teacher->delete();
         }
-        
+
         toastr()->success('تم إضافة استاذ بنجاح');
         return redirect()->route('teachers.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Teacher  $teacher
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Teacher $teacher)
-    {
-        //
     }
 
     /**
@@ -96,7 +85,7 @@ class TeacherController extends Controller
     public function update(UpdateTeacherRequest $request, $id)
     {
         $teacher = Teacher::withTrashed()->findOrFail($id);
-        
+
         $teacher->update([
             'name' => $request->name,
             'description' => $request->description,
@@ -109,7 +98,7 @@ class TeacherController extends Controller
         } else {
             $teacher->restore();
         }
-        
+
         toastr()->success('تم تحديث استاذ بنجاح');
         return redirect()->route('teachers.index');
     }

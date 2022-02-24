@@ -69,17 +69,6 @@ class YearController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Year  $year
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Year $year)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Year  $year

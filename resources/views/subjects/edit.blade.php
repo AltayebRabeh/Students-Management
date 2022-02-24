@@ -8,7 +8,7 @@
         <div class="mb-4">
             <h2 class="h4">تعديل المادة {{ $subject->name }}</h2>
         </div>
-        <form action="{{ route('subjects.update', $subject->id) }}" method="post">
+        <form action="{{ route('subjects.update', $subject->id) }}" id="editSubject" method="post">
             @csrf
             @method('patch')
             <input type="hidden" name="id" value="{{ $subject->id }}">

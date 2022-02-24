@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="section_id">القسم</label>
-                            <select name="section_id" id="section_id" class="form-control">
+                            <select name="section_id" class="form-control">
                                 <option disable></option>
                                 @if(cache('sections') != null)
                                     @foreach (cache('sections') as $section)
@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="year_id">السنة</label>
-                            <select name="year_id" id="year_id" class="form-control">
+                            <select name="year_id" class="form-control">
                                 <option disable></option>
                                 @if(cache('years') != null)
                                     @foreach (cache('years') as $year)
@@ -35,13 +35,13 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="classroom_id">الصف الدراسي</label>
-                            <select name="classroom_id" id="classroom_id" class="form-control">
+                            <select name="classroom_id" class="form-control">
 
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="semester_id">الفصل الدراسي</label>
-                            <select name="semester_id" id="semester_id" class="form-control">
+                            <select name="semester_id" class="form-control">
 
                             </select>
                         </div>

@@ -80,7 +80,7 @@
         $('#btn-send').click(function (event) {
 
             $(this).css('disabled', 'disabled');
-            
+
             $('.loading').css("display", "flex");
 
             $.ajaxSetup({

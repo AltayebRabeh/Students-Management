@@ -31,15 +31,15 @@ class DashboardController extends Controller
                 $section->studentsCount = Student::whereHas('grades', function($q) use($year, $section){
                     $q->withTrashed()->whereYearId($year->id)->whereSectionId($section->id);
                 })->count();
-                
+
                 $section->studentsSuccess = Student::whereHas('grades', function($q) use($year, $section){
                     $q->withTrashed()->whereYearId($year->id)->whereSectionId($section->id);
                 })->whereDoesntHave('grades', function($q) use($year){$q->withTrashed()->whereYearId($year->id)->where('re_exam', '!=', 0)->orWhere('fail', '!=', 0);})->count();
-                
+
                 $section->successRate = number_format(($section->studentsSuccess / $section->studentsCount) * 100 , 2);
-                
+
                 $this->successRate[$section->name][] = $section->successRate;
-                
+
             });
 
         });

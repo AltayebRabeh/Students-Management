@@ -20,7 +20,8 @@ class GradesStatisticsController extends Controller
 
     public function result(Request $request){
 
-        $SubjectsStatistics = Grade::selectRaw('subject_teacher_id')
+        $SubjectsStatistics = Grade::withTrashed()
+                            ->selectRaw('subject_teacher_id')
                             ->selectRaw('avg(grade) as avg')
                             ->with(['subjectTeacher' => function($q){$q->withTrashed();}])
                             ->with(['subjectTeacher.teacher' => function($q){$q->select('id', 'name')->withTrashed();}])
@@ -35,6 +36,7 @@ class GradesStatisticsController extends Controller
         $SubjectsStatistics->each(function($statistic) use($request){
 
             $statistic->studentsCount = $statistic
+                                ->withTrashed()
                                 ->whereSubjectTeacherId($statistic->subject_teacher_id)
                                 ->whereSectionId($request->section_id)
                                 ->whereClassroomId($request->classroom_id)
@@ -43,6 +45,7 @@ class GradesStatisticsController extends Controller
                                 ->count();
 
             $statistic->success = $statistic
+                                ->withTrashed()
                                 ->whereSubjectTeacherId($statistic->subject_teacher_id)
                                 ->whereSectionId($request->section_id)
                                 ->whereClassroomId($request->classroom_id)
@@ -52,6 +55,7 @@ class GradesStatisticsController extends Controller
                                 ->count();
 
             $statistic->faild = $statistic
+                                ->withTrashed()
                                 ->whereSubjectTeacherId($statistic->subject_teacher_id)
                                 ->whereSectionId($request->section_id)
                                 ->whereClassroomId($request->classroom_id)
@@ -66,7 +70,8 @@ class GradesStatisticsController extends Controller
         });
 
         $studentFaild = Student::whereHas('grades', function($q) use($request){
-            $q->whereSectionId($request->section_id)
+            $q->withTrashed()
+            ->whereSectionId($request->section_id)
             ->whereClassroomId($request->classroom_id)
             ->whereSemesterId($request->semester_id)
             ->whereYearId($request->year_id)
@@ -74,7 +79,8 @@ class GradesStatisticsController extends Controller
         })->count();
 
         $studentCount = Student::whereHas('grades', function($q) use($request){
-            $q->withTrashed()->whereSectionId($request->section_id)
+            $q->withTrashed()
+            ->whereSectionId($request->section_id)
             ->whereClassroomId($request->classroom_id)
             ->whereSemesterId($request->semester_id)
             ->whereYearId($request->year_id);

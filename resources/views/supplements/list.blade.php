@@ -16,7 +16,12 @@
                 <div class="col-12 text-center mb-4">
                     @include('layouts.extends.report-header')
                     <p class="text-muted"><strong>قسم {{ $section }}</strong></p>
-                    <p class="text-muted"><strong>الصف</strong> ({{ $classroom }})</p>
+                    <p class="text-muted"><strong>الصف</strong> ({{ $classroom }})
+                        @if ($semesrer)
+                            <strong>الفصل</strong> ({{ $semesrer }})
+                        @endif
+                    </p>
+
                     @if($subject)
                     <p class="text-muted"><strong>المادة</strong> ({{ $subject }})</p>
                     @endif
